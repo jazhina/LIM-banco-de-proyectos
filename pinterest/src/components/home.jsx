@@ -1,53 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import Collection from '../conexion/apiunsplash'
+import InfiniteScroll from 'react-infinite-scroll-component';
+import GetImage from '../API/unsplash'
+import '../sass/styles.css';
 
 function Home() {
   const [photo, setPhoto] = useState([]);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState('');
+  const [page, setPage] = useState(1);
 
   function handleChange(event) {
     setValue(event.target.value);
-/*     console.log(value); */
+    /*     console.log(value); */
   }
 
-  function Search () {
+  function Search() {
     let client = 'faH5ou8PZPorTMWUYL-yCgAoFvBHS7MdHIUuNNmAxDM'
-    let url = "https://api.unsplash.com/search/photos?client_id="+client+"&query="+value;
+    let url = "https://api.unsplash.com/search/photos?page=1&per_page=40&client_id=" + client + "&query=" + value;
     fetch(url)
-    .then((res)=> {
-      console.log(res)
-      return res.json();
-    })
-    .then((data)=> {
-      console.log(data.results)
-      setPhoto(data.results)
-    })
+      .then((res) => {
+        console.log(res)
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data.results)
+        setPhoto(data.results)
+      })
   }
-  
-  useEffect(() => {
-    Collection().then((res) => (setPhoto(res)));
-  }, []);
 
-  const print = () => { 
+  useEffect(() => {
+    GetImage(page).then((res) => (setPhoto(res)));
+  }, [page]);
+
+  const fetchData = () => {
+    let next = page + 1;
+    setPage(next)
+    console.log(page)
+  }
+
+  const ListImage = () => {
     return photo.map((element) => (
-      <img className="img-fluid img-thumbnail"src={element.urls.small} key={element.id} alt="photos" />
+      <img className="img-fluid card-img" src={element.urls.thumb} key={element.id} alt="photos" />
     ))
   }
 
   console.log(photo);
   return (
     <div>
-      <h1 className="bg-danger">PINTEREST</h1>
       <input onChange={handleChange} type="text" className="form-control" placeholder="Buscar Foto" name="photo" />
       <input onClick={(event) => {
-            event.preventDefault();
-            Search();
-          }}
-          type="image" 
-          src="https://img.icons8.com/ios-filled/50/000000/google-web-search.png" 
-          alt="search"/>
+        event.preventDefault();
+        Search();
+      }}
+        type="image"
+        src="https://img.icons8.com/ios-filled/50/000000/google-web-search.png"
+        alt="search" />
       <main>
-        {print()}
+        <InfiniteScroll
+          dataLength={photo.length}
+          hasMore={true}
+          next={fetchData}>
+          <figure className="card">
+            <ListImage />
+          </figure>
+        </InfiniteScroll>
       </main>
     </div>
   );

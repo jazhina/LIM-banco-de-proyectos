@@ -1,0 +1,217 @@
+@mixin col {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @mixin input {
+    width: 338px;
+    height: 40px;
+    border-radius: 5px;
+    background: white;
+    margin: 7px;
+    margin-left: 90px;
+    @include font;
+    @include media(xs) {
+      width: 100px;
+      height: 20px;
+      margin: 0px;
+      font-size: 12;
+      margin-left: 0px;
+    }
+  }
+  
+  @mixin btnpink {
+    width: 244px;
+    height: 60px;
+    border-radius: 10px;
+    border: solid 0 #000000;
+    background-color: #f61067;
+    margin-top: 4%;
+    color: white;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    @include font;
+    @include media(xs) {
+      width: 110px;
+      height: 25px;
+    }
+    @include media(sm) {
+      width: 150px;
+      height: 40px;
+    }
+    @include media(md) {
+      width: 205px;
+      height: 50px;
+    }
+  }
+  
+  @mixin btnpinklink {
+    width: 244px;
+    height: 60px;
+    border-radius: 10px;
+    border: solid 0 #000000;
+    background-color: #f61067;
+    color: white;
+    text-transform: uppercase;
+    padding: 20px;
+    &:hover {
+      text-decoration: none;
+      color: white;
+    }
+    @include font;
+    @include media(xs) {
+      width: 110px;
+      height: 25px;
+    }
+    @include media(sm) {
+      width: 150px;
+      height: 40px;
+    }
+    @include media(md) {
+      width: 205px;
+      height: 50px;
+    }
+  }
+  
+  @mixin rowyellow {
+    width: 1026px;
+    height: 61px;
+    background-color: #ffd200;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    border: 10px solid white;
+  }
+  @mixin tableyellow {
+    font-weight: bold;
+    background-color: #ffd200;
+    @include font;
+  }
+  @mixin tablepink {
+    font-weight: bold;
+    background-color: #f61067;
+    color: white;
+  
+    @include font;
+  }
+  
+  @mixin mrtable {
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+  
+    
+  }
+  @mixin btnyellow {
+    width: 244px;
+    height: 60px;
+    background-color: #ffd200;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    border: solid 0 #000000;
+    text-align: center;
+    color: #000000;
+  
+  }
+  @mixin btnyellowlink {
+    width: 165px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: solid 0 #000000;
+    background-color: #ffd200;
+    color: #000000;
+    text-transform: uppercase;
+    padding: 15px;
+    margin-top: 10px;
+  
+    @include font;
+  }
+  @mixin font {
+    font-family: Metropolis;
+    font-size: 22px;
+    &:hover {
+      text-decoration: none;
+      color: #000000;
+    }
+    @include media(xs) {
+      font-size: 12px;
+    }
+    @include media(sm) {
+      font-size: 15px;
+    }
+    @include media(md) {
+      font-size: 18px;
+    }
+  }
+  
+  @mixin fontlight {
+    font-family: $font-title;
+    font-size: 22px;
+    font-weight: lighter;
+  
+    @include media(xs) {
+      font-size: 15px;
+    }
+  }
+  
+  @mixin h3ColorFuc {
+    width: 434px;
+    height: 30.7px;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: #f61067;
+    margin-left: 35%;
+    margin-bottom: 20px;
+  }
+  @mixin aReq {
+    width: 157px;
+    height: 24px;
+    font-family: Metropolis;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2d2926;
+  }
+  @mixin tdli {
+    margin-bottom: 20px;
+    list-style: none;
+  }
+  @mixin alignleft($margin) {
+    margin-left: $margin;
+  }
+  
+  @mixin alignright($margin) {
+    margin-right: $margin;
+  }
+  @mixin alignbottom($margin) {
+    margin-bottom: $margin;
+  }
+  
+  /*-------------------------*\
+          MEDIA QUERYS
+  \*-------------------------*/
+  
+  @mixin media($media) {
+    @if $media == xs {
+      @media (max-width: $breakpoint-sm) { @content; }
+    }
+    @else if $media == sm {
+      @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) { @content; }
+    }
+    @else if $media == md {
+      @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) { @content; }
+    }
+    @else if $media == lg {
+      @media (min-width: $breakpoint-lg) { @content; }
+    }
+  }

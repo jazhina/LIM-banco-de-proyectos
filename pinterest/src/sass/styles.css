@@ -1,0 +1,25 @@
+.card {
+    display: flex;
+ /*    flex-direction: column; */
+    flex-wrap: wrap;
+    max-height: 2300px;
+    align-content: center;
+}
+
+.card-img {
+border-radius: 5%;
+width: 17.5%;
+margin: 4px;
+}
+
+.pintImg {
+    width: 45px;
+    height: 45px;
+}
+
+.input {
+    width: 900px;
+    height: 40px;
+    border-radius: 5px;
+    background: white;
+  }
