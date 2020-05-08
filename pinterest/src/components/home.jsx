@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Masonry from 'react-masonry-css';
 import GetImage from '../API/unsplash'
 import '../sass/styles.css';
 
@@ -26,10 +27,20 @@ function Home() {
         setPhoto(data.results)
       })
   }
+  const useCurrentScrollPosition = () => {
+    const [currScrollPosition, setCurrScrollPosition] = useState(0);
+    useEffect(() => {
+      const handleScrollEvent = () => setCurrScrollPosition(window.scrollY);
+      document.addEventListener('scroll', handleScrollEvent);
+      return () =>
+        document.removeEventListener('scroll', handleScrollEvent);
+    }, []);
+    return currScrollPosition;
+  }
 
   useEffect(() => {
-    GetImage(page).then((res) => (setPhoto(res)));
-  }, [page]);
+    GetImage(page).then((res) => setPhoto(photo.concat(res)));
+  }, [page, photo]);
 
   const fetchData = () => {
     let next = page + 1;
@@ -58,10 +69,19 @@ function Home() {
         <InfiniteScroll
           dataLength={photo.length}
           hasMore={true}
-          next={fetchData}>
-          <figure className="card">
+          next={fetchData}
+          loader= {<h4>Cargando...</h4>}
+          >
+          <Masonry
+            breakpointCols={5}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column">
+              <ListImage />
+          </Masonry>
+         {/*  <figure className="card">
             <ListImage />
-          </figure>
+          </figure> */}
+          {useCurrentScrollPosition()}
         </InfiniteScroll>
       </main>
     </div>

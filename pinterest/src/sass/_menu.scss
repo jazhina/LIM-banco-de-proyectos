@@ -1,0 +1,21 @@
+@import "mixins";
+
+body {
+ 
+    /* background: green; */
+    .container{
+      @include contenedor;
+      .my-masonry-grid {
+        @include mmgrid;
+      }
+      .my-masonry-grid_column {
+        @include mmgridcolumn;
+      }
+       
+      /* Style your items */
+      .my-masonry-grid_column > li { /* change div to reference your elements you put in <Masonry> */
+       @include mmgridcolumn-li;
+      }
+     
+    }
+}
